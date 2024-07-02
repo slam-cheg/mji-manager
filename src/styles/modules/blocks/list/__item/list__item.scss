@@ -1,0 +1,16 @@
+.list__item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0;
+  align-items: center;
+  border: 1px solid $color-coal;
+  border-right: none;
+  height: 40px;
+  position: relative;
+
+  #flags & {
+    display: flex;
+	border: none;
+	height: auto;
+  }
+}

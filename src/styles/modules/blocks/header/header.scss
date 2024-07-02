@@ -1,0 +1,25 @@
+@import "../../variables.scss";
+
+.header {
+	display: flex;
+	width: 100%;
+	margin: 20px 0 60px 0;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10px;
+	padding: 5px 20px;
+	box-shadow: $shadow;
+	overflow: hidden;
+
+	@media screen and (max-width: 1199px) {
+		margin: 0 -20px;
+		padding: 5px 10px;
+		width: 100%;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		position: fixed;
+		z-index: 300;
+		background: #fff;
+		top: 0;
+	}
+}

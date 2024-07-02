@@ -1,0 +1,16 @@
+.h1Title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 1199px) {
+  .h1Title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.h1TitleCenter {
+  text-align: center;
+}

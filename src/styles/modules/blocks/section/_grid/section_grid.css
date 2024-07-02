@@ -1,0 +1,6 @@
+.section_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}/*# sourceMappingURL=section_grid.css.map */

@@ -1,0 +1,6 @@
+.formDisabled {
+    .button {
+        background: $color-disabled;
+        pointer-events: none;
+    }
+}

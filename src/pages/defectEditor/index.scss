@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+@import "../modules/variables.scss";
+@import "../modules/mixins.scss";
+
+@import "../modules/blocks/page/page.scss";
+
+@import "../modules/blocks/header/header.scss";
+@import "../modules/blocks/header/__left/header__left.scss";
+@import "../modules/blocks/header/__right/header__right.scss";
+@import "../modules/blocks/header/__text/header__text.scss";
+@import "../modules/blocks/logo/logo.scss";
+
+@import "../modules/blocks/main/main.scss";
+@import "../modules/blocks/section/section.scss";
+@import "../modules/blocks/section/_flex/section_flex.scss";
+
+@import "../modules/blocks/h1-title/h1-title.scss";
+@import "../modules/blocks/h3-title/h3-title.scss";
+
+@import "../modules/blocks/form/form.scss";
+@import "../modules/blocks/form/__group/form__group.scss";
+@import "../modules/blocks/form/__row/form__row.scss";
+@import "../modules/blocks/row-container/row-container.scss";
+@import "../modules/blocks/form/__label/form__label.scss";
+@import "../modules/blocks/form/__condition/form__condition.scss";
+@import "../modules/blocks/form/__textarea/form__textarea.scss";
+
+@import "../modules/blocks/button/button.scss";
+@import "../modules/blocks/button/_hidden/button_hidden.scss"
+
+
+
+

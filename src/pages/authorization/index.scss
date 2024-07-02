@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+@import "../modules/variables.scss";
+@import "../modules/mixins.scss";
+
+@import "../modules/blocks/page/page.scss";
+
+@import "../modules/blocks/header/header.scss";
+@import "../modules/blocks/header/__left/header__left.scss";
+@import "../modules/blocks/header/__right/header__right.scss";
+@import "../modules/blocks/header/__text/header__text.scss";
+@import "../modules/blocks/logo/logo.scss";
+
+@import "../modules/blocks/main/main.scss";
+@import "../modules/blocks/section/section.scss";
+@import "../modules/blocks/section/_grid/section_grid.scss";
+
+@import "../modules/blocks/h1-title/h1-title.scss";
+@import "../modules/blocks/h1-title/_center/h1-title_center.scss";
+@import "../modules/blocks/h2-title/h2-title.scss";
+@import "../modules/blocks/h3-title/h3-title.scss";
+
+@import "../modules/blocks/form/form.scss";
+@import "../modules/blocks/form/_authorization/form_authorization.scss";
+@import "../modules/blocks/form/__input-wrapper/form__input-wrapper.scss";
+@import "../modules/blocks/form/__input/form__input.scss";
+@import "../modules/blocks/form/__error/form__error.scss";
+@import "../modules/blocks/form/__error/_hidden/form__error_hidden.scss";
+@import "../modules/blocks/form/_disabled/form_disabled.scss";
+
+@import "../modules/blocks/button/button.scss";
+@import "../modules/blocks/button/_form/button_form.scss";
+
+@import "../modules/blocks/result/result.scss";
+@import "../modules/blocks/result/_hidden/result_hidden.scss";
+@import "../modules/blocks/result/_success/result_success.scss";
+@import "../modules/blocks/result/_fail/result_fail.scss";
+@import "../modules/blocks/result/__text/result__text.scss";
+@import "../modules/blocks/result/__text-wrapper/result__text-wrapper.scss";
+

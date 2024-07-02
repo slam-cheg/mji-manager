@@ -1,0 +1,8 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+@import "../../styles/modules/blocks/main/main.scss";
+@import "../../styles/modules/blocks/section/section.scss";
+@import "../../styles/modules/blocks/section/_grid/section_grid.scss";

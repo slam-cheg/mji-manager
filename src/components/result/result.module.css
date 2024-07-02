@@ -1,0 +1,50 @@
+.h2Title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+@media screen and (max-width: 1199px) {
+  .h2Title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.resultTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.headerText {
+  color: #181818;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.headerText:hover {
+  transition: 0.3s;
+  color: #e2000f;
+}
+@media screen and (max-width: 1199px) {
+  .headerText {
+    font-size: 12px;
+  }
+}
+
+.resultSuccess .h2-title {
+  color: #00931a;
+}
+
+.resultFail .h2-title {
+  color: #e2000f;
+}
+
+.result_hidden {
+  display: none;
+}
