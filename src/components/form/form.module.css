@@ -30,3 +30,93 @@
   background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
+
+.formInputWrapper {
+  border: none;
+  margin: 0;
+  padding: 0 0 30px 0;
+  position: relative;
+}
+
+.formInput {
+  width: 100%;
+  font-size: 16px;
+  color: #181818 !important;
+  padding: 10px;
+  border: 1px solid #1f5473;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+@media screen and (max-width: 1199px) {
+  .formInput {
+    font-size: 12px;
+  }
+}
+.formInput:focus-visible {
+  outline: #1f5473;
+}
+
+.formError {
+  font-size: 16px;
+  color: #181818;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #e2000f;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  transition: 0.3s;
+}
+
+.formErrorHidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.button {
+  background: #e2000f;
+  width: 320px;
+  height: 45px;
+  border-radius: 10px;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
+  outline: none;
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+@media screen and (max-width: 1199px) {
+  .button {
+    right: 20px;
+  }
+}
+@media screen and (max-width: 399px) {
+  .button {
+    width: calc(100% - 40px);
+    font-size: 12px;
+    height: 30px;
+  }
+}
+.button[data-admin=true] {
+  background: #00931a;
+}
+.button:hover {
+  background: #1f5473;
+  transition: 0.3s;
+}
+
+.buttonForm {
+  position: relative;
+  bottom: unset;
+  right: unset;
+  width: 100%;
+}

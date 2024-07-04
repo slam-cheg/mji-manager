@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./result.module.css";
 
 export const Result = ({ props }) => {
-	console.log(props.type);
 	if (props.type === "start") {
 		return (
 			<div className={`${styles.result} resultStart`}>
