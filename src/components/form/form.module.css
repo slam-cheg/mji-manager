@@ -26,11 +26,6 @@
   gap: unset;
 }
 
-.formDisabled .button {
-  background: rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-}
-
 .formInputWrapper {
   border: none;
   margin: 0;
@@ -119,4 +114,9 @@
   bottom: unset;
   right: unset;
   width: 100%;
+}
+
+.buttonDisabled {
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 }
