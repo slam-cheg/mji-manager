@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Регистрация | MJI-MANAGER</title>
+		<link rel="stylesheet" href="../../../components/styles/registration/index.css" />
+	</head>
+	<body class="page">
+		<header class="header">
+			<div class="header__left">
+				<img src="../public/images/logo.svg" alt="" class="logo" />
+			</div>
+			<div class="header__right">
+				<a href="https://github.com/eternumart/Chrome-App/archive/refs/heads/dev.zip" target="_blank" rel="nofollow noopener" class="header__text">Скачать расширение</a>
+			</div>
+		</header>
+		<main class="main">
+			<h1 class="h1-title h1-title_center">Регистрация нового аккаунта</h1>	
+			<section class="section section_grid">
+				<form class="form form_registration form_disabled" action="submit" novalidate>
+					<fieldset class="form__input-wrapper">
+						<input type="text" class="form__input" placeholder="И. О. Фамилия" id="fio" minlength="4" required />
+						<span class="form__error form__error_hidden" id="error-name">Не валидное имя</span>
+					</fieldset>
+					<fieldset class="form__input-wrapper">
+						<input type="email" class="form__input" placeholder="E-mail" id="login" required />
+						<span class="form__error form__error_hidden" id="error-email">Не валидный E-mail</span>
+					</fieldset>
+					<fieldset class="form__input-wrapper">
+						<input type="password" class="form__input" placeholder="Пароль" id="password" minlength="8" required />
+						<span class="form__error form__error_hidden" id="error-password">Слабый пароль</span>
+					</fieldset>
+					<input class="button button_form" id="registration-btn" value="Зарегистрироваться" type="submit" />
+				</form>
+				<div class="result result_start">
+					<h2 class="h2-title">Введите регистрационные данные</h2>
+					<div class="result__text-wrapper">
+						<p class="result__text">ФИО в формате "И. О. Фамилия"</p>
+						<p class="result__text">Рабочая почта</p>
+						<p class="result__text">Пароль длиной не менее 8 символов, только английскими буквами, обязательно наличие больших и маленьких букв, цифр и спец. символов</p>
+						<br>
+						<a href="../login" class="header__text">Есть аккаунт?</a>
+					</div>
+				</div>
+				<div class="result result_hidden result_success">
+					<h2 class="h2-title">Регистрация прошла успешно!</h2>
+					<div class="result__text-wrapper">
+						<p class="result__text">Ваш ключ активации: <span class="result__key"></span></p>
+						<p class="result__text">Внимание! Ключ генерируется только 1&nbsp;раз! Сохраните его в&nbsp;надежное место.</p>
+					</div>
+				</div>
+				<div class="result result_hidden result_fail">
+					<h2 class="h2-title">Ошибка регистрации</h2>
+					<div class="result__text-wrapper">
+						<p class="result__text">Попробуйте перезагрузить страницу</p>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<script src="../../../components/scripts/registration/registration.js"></script>
+	</body>
+</html>
