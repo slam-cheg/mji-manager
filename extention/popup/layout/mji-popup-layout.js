@@ -1,5 +1,6 @@
 import fs from "fs";
 
+//переписать в БД
 const functions = JSON.parse(fs.readFileSync("./server/appData/activeFunctions.json", "utf-8"));
 
 export const mjiAppLayout = `

@@ -21,6 +21,7 @@ import { ChangeUserPermissions } from "./server/routes/api/changeUserPermissions
 import { ChangeProfile } from "./server/routes/api/changeProfile.js";
 import { DeactivateAccount } from "./server/routes/api/deactivateAccount.js";
 import { GetAppData } from "./server/routes/api/getAppData.js";
+import { GetApp } from "./server/routes/api/getApp.js";
 
 const { Client } = pkg;
 const __filename = fileURLToPath(import.meta.url);
@@ -112,6 +113,10 @@ app.post(ServerConfig.routes.api.deactivateAccount, cors(ServerConfig.corsOption
 
 app.post(ServerConfig.routes.api.getAppData, cors(ServerConfig.corsOptions), (req, res) => {
 	GetAppData(req, res);
+});
+
+app.get(ServerConfig.routes.api.getApp, cors(ServerConfig.corsOptions), (req, res) => {
+	GetApp(req, res);
 });
 
 export const dataBase = new Client(ServerConfig.dataBase);

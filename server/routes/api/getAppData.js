@@ -1,6 +1,6 @@
-import { fakeSelectsLayout } from "../../../extention/popup/fakeSelectsLayout.js";
-import { mjiAppLayout } from "../../../extention/popup/layout.js";
-import { mjiAppStyles } from "../../../extention/popup/styles.js";
+import { fakeSelectsLayout } from "../../../extention/popup/layout/fakeSelectsLayout.js";
+import { mjiAppLayout } from "../../../extention/popup/layout/mji-popup-layout.js";
+import { mjiAppStyles } from "../../../extention/app/mji-app-styles.js";
 
 export const GetAppData = (req, res) => {
 	if (!req.body) {

@@ -20,6 +20,7 @@ export const ServerConfig = {
             defectEditor: "/defect-editor",
 		},
 		api: {
+            getApp: "/api/get-app", 
 			registration: "/auth/registration",
 			login: "/auth/login",
 			activation: "/auth/activation",
