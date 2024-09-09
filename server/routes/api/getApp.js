@@ -1,4 +1,4 @@
-import { appLayout } from "../../../extention/app/mji-app-layout.js";
+import { mjiPopupLayout } from "../../appData/mjiPopupLayout.js";
 import { timeStamp } from "../../utils/timeStamp.js";
 import { writeLog } from "../../dataBase/writeLog.js";
 
@@ -10,7 +10,7 @@ export const GetApp = (req, res) => {
 	const getAppData = {
 		status: `Верстка приложения отдана.`,
 		boolean: true,
-        layout: appLayout,
+        layout: mjiPopupLayout,
 		timeStamp: timeStamp(),
 	};
 

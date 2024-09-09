@@ -1,6 +1,5 @@
-import { fakeSelectsLayout } from "../../../extention/popup/layout/fakeSelectsLayout.js";
-import { mjiAppLayout } from "../../../extention/popup/layout/mji-popup-layout.js";
-import { mjiAppStyles } from "../../../extention/app/mji-app-styles.js";
+import { fakeSelectsLayout } from "../../appData/fakeSelectsLayout.js";
+import { mjiPopupLayout } from "../../appData/mjiPopupLayout.js";
 
 export const GetAppData = (req, res) => {
 	if (!req.body) {
@@ -17,8 +16,7 @@ function getAppData() {
 	const representativesData = JSON.parse(fs.readFileSync("./appData/representatives.json", "utf-8"));
 	const functions = JSON.parse(fs.readFileSync("./appConfig/appFlags.json", "utf-8"));
 	const appLayout = {
-		popupLayout: mjiAppLayout,
-		stylesLayout: mjiAppStyles,
+		popupLayout: mjiPopupLayout,
 		fakeSelectList: fakeSelectsLayout,
 	};
 	const dataStatus = {
