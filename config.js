@@ -1,9 +1,7 @@
-import { ip } from "address";
-
 export const ServerConfig = {
 	address: {
-		ip: ip(),
-		port: 3000,
+		ip: "192.168.0.99",
+		port: 80,
 	},
     corsOptions: {
         methods: ["GET", "POST"],
@@ -14,6 +12,7 @@ export const ServerConfig = {
 	routes: {
 		pages: {
 			home: "/",
+            node: "/node",
 			registration: "/registration",
 			login: "/login",
 			profile: "/profile",
@@ -36,7 +35,7 @@ export const ServerConfig = {
 		},
 	},
     dataBase: {
-        host: ip(),
+        host: "192.168.0.99",
         port: 3001,
         database: "Manager",
         user: "postgres",

@@ -22,6 +22,7 @@ import { ChangeProfile } from "./server/routes/api/changeProfile.js";
 import { DeactivateAccount } from "./server/routes/api/deactivateAccount.js";
 import { GetAppData } from "./server/routes/api/getAppData.js";
 import { GetApp } from "./server/routes/api/getApp.js";
+import { NodePage } from "./server/routes/api/nodePage.js";
 
 const { Client } = pkg;
 const __filename = fileURLToPath(import.meta.url);
@@ -41,7 +42,7 @@ app.listen(ServerConfig.address.port, (err) => {
 	if (err) {
 		console.log(err);
 	} else {
-		console.log(`Сервер запущен на адресе ${ServerConfig.address.ip}:${ServerConfig.address.port}`);
+		console.log(`Сервер запущен на адресе http://${ServerConfig.address.ip}:${ServerConfig.address.port}`);
 	}
 });
 
@@ -49,7 +50,9 @@ app.listen(ServerConfig.address.port, (err) => {
 app.get(ServerConfig.routes.pages.home, cors(ServerConfig.corsOptions), (req, res) => {
 	HomePage(req, res);
 });
-
+app.get(ServerConfig.routes.pages.node, cors(ServerConfig.corsOptions), (req, res) => {
+	NodePage(req, res);
+});
 app.get(ServerConfig.routes.pages.registration, cors(ServerConfig.corsOptions), (req, res) => {
 	RegistrationPage(req, res);
 });
