@@ -1,6 +1,6 @@
 export const ServerConfig = {
 	address: {
-		ip: "192.168.0.99",
+		ip: "http://mjimanager.ru/",
 		port: 80,
 	},
     corsOptions: {

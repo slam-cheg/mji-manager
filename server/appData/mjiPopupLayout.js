@@ -26,7 +26,7 @@ export const mjiPopupLayout = `
                     />
                 </svg>
             </div>
-            <h1 class="header__title">МЖИ менеджер v2.1.0</h1>
+            <h1 class="header__title">МЖИ менеджер v3.0.0</h1>
         </div>
         <div class="header__drag-button">
             <svg width="20" height="6" viewBox="0 0 20 6" fill="none" xmlns="http://www.w3.org/2000/svg">
