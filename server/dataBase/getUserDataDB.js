@@ -1,4 +1,5 @@
 import { dataBase } from "../../server.js";
+import { timeStamp } from "../utils/timeStamp.js";
 
 export const getUserDataDB = async (login) => {
 	console.log(`Запрос данных пользователя ${login} в БД. ${timeStamp()}`);

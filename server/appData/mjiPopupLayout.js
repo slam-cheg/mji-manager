@@ -51,15 +51,15 @@ export const mjiPopupLayout = `
     </div>
     <div class="tabs">
         <button class="tabs__button" id="main">Основное</button>
-        ${functions.downloadPhotos ?? '<button class="tabs__button" id="photo">Фото</button>'}
+        ${functions.downloadPhotos ? '<button class="tabs__button" id="photo">Фото</button>' : ""}
     </div>
     <div class="main">
         <div class="content" id="main">
-            ${functions.saveData ?? '<button class="main__button" id="copy">Копирование отчета</button>'}
-            ${functions.clearData ?? '<button class="main__button" id="clean">Очистка отчета</button>'}
-            ${functions.loadData ?? '<button class="main__button" id="paste">Вставка отчета</button>'}
-            ${functions.createFakeSelects ?? '<button class="main__button" id="fakeSelects">Всплывающие поля</button>'}
+            ${functions.saveData ? '<button class="main__button" id="copy">Копирование отчета</button>' : ""}
+            ${functions.clearData ? '<button class="main__button" id="clean">Очистка отчета</button>': ""}
+            ${functions.loadData ? '<button class="main__button" id="paste">Вставка отчета</button>' : ""}
+            ${functions.createFakeSelects ? '<button class="main__button" id="fakeSelects">Всплывающие поля</button>' : ""}
         </div>
-        ${functions.downloadPhotos ?? '<div class="content" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>'}
+        ${functions.downloadPhotos ? '<div class="content" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>' : ""}
     </div>
 </div>`;

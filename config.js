@@ -1,6 +1,6 @@
 export const ServerConfig = {
 	address: {
-		ip: "192.168.0.99",
+		ip: "192.168.0.28",
 		port: 80,
 	},
     corsOptions: {

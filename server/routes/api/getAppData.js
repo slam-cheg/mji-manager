@@ -1,5 +1,7 @@
 import { fakeSelectsLayout } from "../../appData/fakeSelectsLayout.js";
 import { mjiPopupLayout } from "../../appData/mjiPopupLayout.js";
+import { mjiPopupStyles } from "../../appData/mjiPopupStyles.js";
+import fs from "fs";
 
 export const GetAppData = (req, res) => {
 	if (!req.body) {
@@ -11,13 +13,14 @@ export const GetAppData = (req, res) => {
 };
 
 function getAppData() {
-	const defectsData = JSON.parse(fs.readFileSync("./appData/data.json", "utf8"));
-	const ratesData = JSON.parse(fs.readFileSync("./appData/rates.json", "utf8"));
-	const representativesData = JSON.parse(fs.readFileSync("./appData/representatives.json", "utf-8"));
-	const functions = JSON.parse(fs.readFileSync("./appConfig/appFlags.json", "utf-8"));
+	const defectsData = JSON.parse(fs.readFileSync("./server/appData/defects.json", "utf8")); // Необходимо перенести все в БД
+	const ratesData = JSON.parse(fs.readFileSync("./server/appData/rates.json", "utf8")); // Необходимо перенести все в БД
+	const representativesData = JSON.parse(fs.readFileSync("./server/appData/representatives.json", "utf-8")); // Необходимо перенести все в БД
+	const functions = JSON.parse(fs.readFileSync("./server/appData/activeFunctions.json", "utf-8")); // Необходимо перенести все в БД
 	const appLayout = {
 		popupLayout: mjiPopupLayout,
 		fakeSelectList: fakeSelectsLayout,
+		stylesLayout: mjiPopupStyles,
 	};
 	const dataStatus = {
 		defectsData: `${defectsData ? "OK" : "No data"}`,

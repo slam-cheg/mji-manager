@@ -123,4 +123,4 @@ app.get(ServerConfig.routes.api.getApp, cors(ServerConfig.corsOptions), (req, re
 });
 
 export const dataBase = new Client(ServerConfig.dataBase);
-//await dataBase.connect();
+await dataBase.connect();
