@@ -1,7 +1,7 @@
 export const ServerConfig = {
   address: {
     production: {
-      ip: "http://mjimanager.ru/",
+      ip: "192.168.0.99",
       port: 80,
     },
     dev: {
@@ -46,6 +46,7 @@ export const ServerConfig = {
       changeAccount: "/api/change-account",
       deactivateAccount: "/api/deactivate-account",
       getAppData: "/api/get-app-data",
+      checkResponseFromServer: "/api/check-response-from-server"
     },
   },
   dataBase: {
