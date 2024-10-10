@@ -27,7 +27,8 @@ function getAppData() {
 		ratesData: `${ratesData ? "OK" : "No data"}`,
 		representativesData: `${representativesData ? "OK" : "No data"}`,
 		appLayout: `${appLayout ? "OK" : "No data"}`,
-		functions: `${functions ? "OK" : "No data"}`,
+		functions: `${functions ? "OK" : "No data"}`
 	};
 	return { defectsData, appLayout, ratesData, representativesData, dataStatus, functions };
 }
+ 

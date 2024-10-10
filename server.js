@@ -24,9 +24,10 @@ import { GetAppData } from "./server/routes/api/getAppData.js";
 import { GetApp } from "./server/routes/api/getApp.js";
 import { NodePage } from "./server/routes/api/nodePage.js";
 import { CheckResponseFromServer } from "./server/routes/api/checkResponseFromServer.js";
+import { GetScripts } from "./server/routes/api/getScripts.js";
 
 const { Client } = pkg;
-const __filename = fileURLToPath(import.meta.url);
+export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 export const app = express();
 
@@ -119,6 +120,10 @@ app.get(ServerConfig.routes.api.checkResponseFromServer, cors(ServerConfig.corsO
 app.get(ServerConfig.routes.api.getApp, cors(ServerConfig.corsOptions), (req, res) => {
 	GetApp(req, res);
 });
+
+app.get(ServerConfig.routes.api.getScripts, cors(ServerConfig.corsOptions), (req, res) => {
+    GetScripts(req, res);
+})
 
 export const dataBase = new Client(ServerConfig.dataBase);
 await dataBase.connect();

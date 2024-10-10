@@ -46,7 +46,8 @@ export const ServerConfig = {
       changeAccount: "/api/change-account",
       deactivateAccount: "/api/deactivate-account",
       getAppData: "/api/get-app-data",
-      checkResponseFromServer: "/api/check-response-from-server"
+      checkResponseFromServer: "/api/check-response-from-server",
+      getScripts: "/api/get-scripts"
     },
   },
   dataBase: {
