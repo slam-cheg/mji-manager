@@ -52,14 +52,15 @@ export const mjiPopupLayout = `
     <div class="tabs">
         <button class="tabs__button" id="main">Основное</button>
         ${functions.downloadPhotos ? '<button class="tabs__button" id="photo">Фото</button>' : ""}
+        ${functions.parser ? '<button class="tabs__button" id="parser">Парсер УК</button>' : ""}
     </div>
     <div class="main">
         <div class="content" id="main">
             ${functions.saveData ? '<button class="main__button" id="copy">Копирование отчета</button>' : ""}
-            ${functions.clearData ? '<button class="main__button" id="clean">Очистка отчета</button>': ""}
+            ${functions.clearData ? '<button class="main__button" id="clean">Очистка отчета</button>' : ""}
             ${functions.loadData ? '<button class="main__button" id="paste">Вставка отчета</button>' : ""}
             ${functions.createFakeSelects ? '<button class="main__button" id="fakeSelects">Всплывающие поля</button>' : ""}
         </div>
-        ${functions.downloadPhotos ? '<div class="content" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>' : ""}
-    </div>
-</div>`;
+        ${functions.downloadPhotos ? '<div class="content content_deactive" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>' : ""}
+        ${functions.parser ? '<div class="content content_deactive" id="parser"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите CSV файл</label><input class="form__input" type="file" id="fileInput" accept=".csv" /></div><button id="processBtn" class="form__button">Начать</button><div id="loader" style="display: none"><div id="progressText">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form><script src="libs/mammoth.browser.min.js"></script></div>' : ""}
+    </div>`;

@@ -2,8 +2,8 @@ import { timeStamp } from "../../utils/timeStamp.js";
 
 export const CheckResponseFromServer = (req, res) => {
   if (!req.body) {
-    res.sendStatus(400);
+    res.send({"status": "400", "message": "Not responding"});
   }
   console.log("Проверка ответа сервера", timeStamp());
-  res.sendStatus(200).end();
+  res.send({"status": "200", "message": "OK"}).end();
 };

@@ -2,13 +2,14 @@ import { fakeSelectsLayout } from "../../appData/fakeSelectsLayout.js";
 import { mjiPopupLayout } from "../../appData/mjiPopupLayout.js";
 import { mjiPopupStyles } from "../../appData/mjiPopupStyles.js";
 import fs from "fs";
+import { timeStamp } from "../../utils/timeStamp.js";
 
 export const GetAppData = (req, res) => {
 	if (!req.body) {
 		res.sendStatus(400);
 	}
 	const appData = getAppData();
-
+	console.log(`appData отдан на фронт ${timeStamp()}`)
 	res.send(appData).end();
 };
 

@@ -230,6 +230,11 @@ font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 100%;
+border-right: 1px solid #bfbfbf;
+}
+
+.tabs__button:last-child {
+border-right: none;
 }
 
 .tabs__button:hover {
@@ -487,4 +492,4 @@ fill: #1f5473;
 transition: 0.3s;
 }
 </style>
-`
+`;

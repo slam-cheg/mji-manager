@@ -2,51 +2,42 @@ import { getUserDataDB } from "../../dataBase/getUserDataDB.js";
 import { timeStamp } from "../../utils/timeStamp.js";
 import { writeLog } from "../../dataBase/writeLog.js";
 
-export const Login = (req, res) => {
-	const signIn = {
-		status: `Вход в аккаунт ${req.body.data.login} заблокирован. Не пройдена активация`,
-		fio: "",
-		activated: false,
-		loginIsPossible: false,
-		timeStamp: timeStamp(),
-		isAdmin: false,
-	};
-	if (!req.body) {
-		res.sendStatus(400);
-	}
-	if (!req.body.data.login) {
-		signIn.status = `Вход в аккаунт ${req.body.data.login} заблокирован. Не введен логин`;
-		res.send(signIn).end();
-	}
-	const reqData = req.body.data;
+export const Login = async (req, res) => {
+    try {
+        if (!req.body || !req.body.data || !req.body.data.login || !req.body.data.password) {
+            return res.status(400).send({ status: "Ошибка: отсутствуют данные для входа" }).end();
+        }
 
-	console.log(`Начат процесс входа аккаунт ${reqData.login} . . . `);
+        const { login, password } = req.body.data;
+        console.log(`Начат процесс входа: ${login} . . . `);
 
-	const resData = getUserDataDB(reqData.login);
+        const userData = await getUserDataDB(login);
+        if (!userData) {
+            return res.status(401).send({ status: "Ошибка: пользователь не найден" }).end();
+        }
 
+        // Проверяем соответствие пароля (ЗДЕСЬ ДОЛЖНО БЫТЬ ХЕШИРОВАНИЕ)
+        if (userData.password !== password) {
+            return res.status(401).send({ status: "Ошибка: неверный логин или пароль" }).end();
+        }
 
+        if (!userData.activated) {
+            return res.status(403).send({ status: "Ошибка: аккаунт не активирован" }).end();
+        }
 
-	resData.then((resPromise) => {
-		if (resPromise === undefined) {
-			signIn.status = `Вход в аккаунт ${reqData.login} заблокирован. Ошибка чтения базы`;
-			//res.send(signIn).end();
-		}
+        const response = {
+            status: `Вход в аккаунт ${login} успешен`,
+            fio: userData.fio,
+            activated: userData.activated,
+            loginIsPossible: true,
+            timeStamp: timeStamp(),
+            isAdmin: userData.isAdmin,
+        };
 
-		// Проверка правильности логина/пароля
-		if (resPromise.login === reqData.login && resPromise.password === reqData.password) {
-			if (resPromise.activated) {
-				signIn.loginIsPossible = true;
-				signIn.status = `Вход в аккаунт ${reqData.login} успешен`;
-				signIn.activated = resPromise.activated;
-				signIn.fio = resPromise.fio;
-				signIn.isAdmin = resPromise.isAdmin;
-			}
-		} else {
-			signIn.status = `Вход в аккаунт ${reqData.login} заблокирован. Не верный логин или пароль`;
-		}
-
-		// Ответ на фронт о возможности авторизации
-		writeLog(signIn, "logIn");
-		res.send(signIn).end();
-	});
+        writeLog(response, "logIn");
+        res.send(response).end();
+    } catch (error) {
+        console.error(`Ошибка входа: ${error.message}`);
+        res.status(500).send({ status: "Ошибка сервера" }).end();
+    }
 };

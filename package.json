@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node prod-server.js",
-    "dev": "nodemon dev-server.js",
-    "build": "webpack --config webpack.config.js"
+    "dev": "nodemon dev-server.js"
   },
   "author": "SLI",
   "license": "ISC",
