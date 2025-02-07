@@ -26,7 +26,7 @@ export const mjiPopupLayout = `
                     />
                 </svg>
             </div>
-            <h1 class="header__title">МЖИ менеджер v3.0.0</h1>
+            <h1 class="header__title">МЖИ менеджер v3.2.0</h1>
         </div>
         <div class="header__drag-button">
             <svg width="20" height="6" viewBox="0 0 20 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +53,7 @@ export const mjiPopupLayout = `
         <button class="tabs__button" id="main">Основное</button>
         ${functions.downloadPhotos ? '<button class="tabs__button" id="photo">Фото</button>' : ""}
         ${functions.parser ? '<button class="tabs__button" id="parser">Парсер УК</button>' : ""}
+        ${functions.parserPDF ? '<button class="tabs__button" id="parserPDF">Парсер PDF</button>' : ""}
     </div>
     <div class="main">
         <div class="content" id="main">
@@ -63,4 +64,5 @@ export const mjiPopupLayout = `
         </div>
         ${functions.downloadPhotos ? '<div class="content content_deactive" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>' : ""}
         ${functions.parser ? '<div class="content content_deactive" id="parser"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите CSV файл</label><input class="form__input" type="file" id="fileInput" accept=".csv" /></div><button id="processBtn" class="form__button">Начать</button><div id="loader" style="display: none"><div id="progressText">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form><script src="libs/mammoth.browser.min.js"></script></div>' : ""}
+        ${functions.parserPDF ? '<div class="content content_deactive" id="parserPDF"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите PDF файл</label><input class="form__input" type="file" id="fileInput" accept=".pdf" /></div><button id="processBtn" class="form__button">Начать</button><div id="loader" style="display: none"><div id="progressText">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form></div>' : ""}
     </div>`;
