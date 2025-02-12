@@ -5,15 +5,24 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   login: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
-  @Column()
-  email: string;
+  @Column({ unique: true, nullable: true })
+  usid: string;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @Column({ unique: true, nullable: true })
+  key: string;
+
+  @Column({ nullable: true }) // ✅ Добавляем поле `fio`
+  fio?: string;
+
+  @Column({ default: false })
+  activated: boolean;
+
+  @Column({ default: false })
+  isAdmin: boolean;
 }

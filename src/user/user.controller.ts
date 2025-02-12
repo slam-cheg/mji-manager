@@ -1,19 +1,123 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { API_ROUTES } from 'src/config/api.config';
+import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
+//import { ICreateUserDTO } from './dto/create-user.dto';
+import { ChangePermissionsDTO } from './dto/change-permissions.dto';
+import { timeStamp } from 'src/utils/timeStamp';
+import { writeLog } from 'src/utils/writeLog';
+import { AllUsersDTO } from './dto/all-users.dto';
+import { ConfigService } from 'src/config/config.service';
+import { ChangeProfileDTO } from './dto/change-profile.dto';
+import { DeactivateAccountDTO } from './dto/deactivate-account.dto';
+import { UserDataDTO } from './dto/user-data.dto';
 
-@Controller('users')
+@Controller('api')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService, private readonly configService: ConfigService,) {}
 
-  @Get(':login')
-  async getUser(@Param('login') login: string) {
-    return this.userService.findByLogin(login);
+  // @Get(':login')
+  // async getUser(@Param('login') login: string) {
+  //   return this.userService.findByLogin(login);
+  // }
+
+  // @Post()
+  // async createUser(@Body() body: ICreateUserDTO) {
+  //   return this.userService.createUser(body);
+  // }
+
+  @Patch(API_ROUTES.users.changePermissions)
+  async changeUserPermissions(@Body() body: ChangePermissionsDTO) {
+    console.log(`Начат процесс изменения доступов ${body.login} . . .`);
+
+    const updateSuccess = await this.userService.updateUserPermissions(body.login, body.isAdmin);
+
+    const response = {
+      status: updateSuccess
+        ? `Доступы аккаунта ${body.login} успешно изменены.`
+        : `Доступы аккаунта ${body.login} не изменены. Ошибка.`,
+      boolean: updateSuccess,
+      login: body.login,
+      timeStamp: timeStamp(),
+    };
+
+    writeLog(response, 'changePermissions');
+    return response;
   }
 
-  @Post()
-  async createUser(
-    @Body() body: { login: string; password: string; email: string },
-  ) {
-    return this.userService.createUser(body.login, body.password, body.email);
+  @Post(API_ROUTES.users.getAllUsers)
+  async getAllUsers(@Body() body: AllUsersDTO) {
+    console.log(`Запрос всех пользователей от ${body.login}...`);
+
+    const users = await this.userService.getAllUsers();
+    const functionsList = this.configService.getFunctionsList();
+
+    const response = {
+      staffList: users,
+      functionsList,
+    };
+
+    const logInfo = {
+      status: users.length
+        ? 'Данные о правах пользователя успешно получены.'
+        : 'Ошибка получения данных о правах пользователя.',
+      login: body.login,
+      boolean: users.length > 0,
+      timeStamp: timeStamp(),
+    };
+
+    writeLog(logInfo, 'getAdminInfo');
+    return response;
+  }
+
+  @Patch(API_ROUTES.users.changeAccount)
+  async changeProfile(@Body() body: ChangeProfileDTO) {
+    console.log(`Начат процесс изменения данных аккаунта ${body.login} . . .`);
+
+    try {
+      const updateSuccess = await this.userService.updateUserField(body.login, body.field, body.value);
+
+      const response = {
+        status: updateSuccess ? `Данные аккаунта успешно изменены.` : `Данные не изменены. Ошибка.`,
+        boolean: updateSuccess,
+        value: body.value,
+        field: body.field,
+        login: body.login,
+        timeStamp: timeStamp(),
+      };
+
+      writeLog(response, 'ChangeProfile');
+      return response;
+    } catch (error) {
+      return {
+        status: error.message,
+        boolean: false,
+        value: body.value,
+        field: body.field,
+        login: body.login,
+        timeStamp: timeStamp(),
+      };
+    }
+  }
+
+  @Patch(API_ROUTES.users.deactivateAccount)
+  async deactivateAccount(@Body() body: DeactivateAccountDTO) {
+    console.log(`Начат процесс деактивации аккаунта ${body.login} . . .`);
+
+    const updateSuccess = await this.userService.deactivateAccount(body.login);
+
+    const response = {
+      status: updateSuccess ? `Деактивация прошла успешно. Аккаунт ${body.login} не активен.` : `Деактивация не удалась. Ошибка.`,
+      boolean: updateSuccess,
+      login: body.login,
+      timeStamp: timeStamp(),
+    };
+
+    writeLog(response, 'DeactivateAccount');
+    return response;
+  }
+
+  @Post(API_ROUTES.users.getUserData)
+  async getUserData(@Body() body: UserDataDTO) {
+    return this.userService.getUserData(body);
   }
 }
