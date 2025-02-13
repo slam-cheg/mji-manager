@@ -1,0 +1,6 @@
+.form__error_hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}/*# sourceMappingURL=form__error_hidden.css.map */

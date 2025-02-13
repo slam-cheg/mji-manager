@@ -1,0 +1,10 @@
+.form__label {
+  font-weight: 400;
+  font-size: 18px;
+  color: #181818;
+}
+@media screen and (max-width: 1199px) {
+  .form__label {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=form__label.css.map */

@@ -1,0 +1,35 @@
+.button {
+	background: $color-brand-red;
+	width: 320px;
+	height: 45px;
+	border-radius: 10px;
+	border: none;
+	color: $color-white;
+	font-size: 18px;
+	font-weight: 400;
+	outline: none;
+	position: fixed;
+	bottom: 20px;
+	right: 40px;
+	transition: 0.3s;
+	cursor: pointer;
+
+	@media screen and (max-width: 1199px) {
+		right: 20px;
+	}
+
+	@media screen and (max-width: 399px) {
+		width: calc(100% - 40px);
+		font-size: 12px;
+		height: 30px;
+	}
+
+	&[data-admin="true"] {
+		background: $color-success;
+	}
+
+	&:hover {
+		background: $color-brand;
+		transition: 0.3s;
+	}
+}

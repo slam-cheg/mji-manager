@@ -1,0 +1,21 @@
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  gap: 20px;
+}
+@media screen and (min-width: 1921px) {
+  .form {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (min-width: 2700px) {
+  .form {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+}/*# sourceMappingURL=form.css.map */
