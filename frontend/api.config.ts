@@ -1,27 +1,27 @@
 export const API_ROUTES = {
   auth: {
-    register: '/registration',
-    login: '/login',
-    activate: '/activation',
+    register: '/auth/registration',
+    login: '/auth/login',
+    activate: '/auth/activation',
   },
   app: {
-    getApp: '/get-app',
-    getAppData: '/get-app-data',
-    updateDefects: '/save-defects',
+    getApp: '/api/get-app',
+    getAppData: '/api/get-app-data',
+    updateDefects: '/api/save-defects',
   },
   users: {
-    getUserData: '/userdata',
-    getAllUsers: '/allusersdata',
-    updateFio: '/savefio',
-    changePermissions: '/change-permissions',
-    changeAccount: '/change-account',
-    deactivateAccount: '/deactivate-account',
+    getUserData: '/api/userdata',
+    getAllUsers: '/api/allusersdata',
+    updateFio: '/api/savefio',
+    changePermissions: '/api/change-permissions',
+    changeAccount: '/api/change-account',
+    deactivateAccount: '/api/deactivate-account',
   },
   config: {
-    changeFunctions: '/change-functions',
+    changeFunctions: '/api/change-functions',
   },
   system: {
-    checkResponse: '/check-response-from-server',
-    getScripts: '/get-scripts',
+    checkResponse: '/api/check-response-from-server',
+    getScripts: '/api/get-scripts',
   },
 };

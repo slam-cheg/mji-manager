@@ -1,13 +1,15 @@
-export async function apiRequest<T>(url: string, method: string, body?: any): Promise<T> {
-    const response = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: body ? JSON.stringify(body) : undefined,
-    });
+const BASE_URL = 'http://mjimanager.ru:3000';
 
-    if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
-    }
+export async function apiRequest(endpoint: string, method = 'GET', body?: any) {
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
 
-    return response.json() as Promise<T>;
+  if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+
+  return response.json();
 }

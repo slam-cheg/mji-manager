@@ -1,3 +1,4 @@
+import styles from "../styles/login-page/index.module.css"
 import { useState } from 'react';
 import Header from '../components/Header';
 import Form from '../components/Form';
@@ -29,15 +30,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="page">
+    <div className={styles.page}>
       <Header />
-      <main className="main">
-        <h1 className="h1-title h1-title_center">Вход в аккаунт</h1>
+      <main className={styles.main}>
+        <h1 className={`${styles.h1Title} ${styles.h1Title_center}`}>Вход в аккаунт</h1>
 
-        <section className="section section_grid">
+        <section className={`${styles.section} ${styles.section_grid}`}>
           {status === 'start' && (
             <Form
-              className={`form_authorization ${formDisabled ? 'form_disabled' : ''}`}
+              className={`${styles.form_authorizati} ${formDisabled ? styles.formDisabled : ''}`}
               inputs={[
                 {
                   type: 'email',
@@ -72,10 +73,10 @@ export default function LoginPage() {
           )}
 
           {status === 'fail' && (
-            <div className="result result_fail">
-              <h2 className="h2-title">Ошибка входа</h2>
-              <div className="result__text-wrapper">
-                <p className="result__text">Неверный E-mail или пароль</p>
+            <div className={`${styles.result} ${styles.result_fail}`}>
+              <h2 className={`${styles.h2Title}`}>Ошибка входа</h2>
+              <div className={`${styles.result__textWrapper}`}>
+                <p className={`${styles.result__text}`}>Неверный E-mail или пароль</p>
                 <br />
                 <a href="../registration" className="header__text">
                   Нет аккаунта?
@@ -85,10 +86,10 @@ export default function LoginPage() {
           )}
 
           {status === 'success' && (
-            <div className="result result_success">
-              <h2 className="h2-title">Успешный вход!</h2>
-              <div className="result__text-wrapper">
-                <p className="result__text">Вы будете перенаправлены в личный кабинет</p>
+            <div className={`${styles.result} ${styles.result_success}`}>
+              <h2 className={`${styles.h2Title}`}>Успешный вход!</h2>
+              <div className={`${styles.result__textWrapper}`}>
+                <p className={`${styles.result__text}`}>Вы будете перенаправлены в личный кабинет</p>
               </div>
             </div>
           )}

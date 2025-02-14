@@ -1,3 +1,4 @@
+import "../styles/defect-editor/index.module.css"
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import GroupComponent from '../components/GroupComponent';

@@ -1,0 +1,8 @@
+.form__input_preview {
+  transition: 0.5s;
+  border: none;
+  border-bottom: 1px solid #1f5473;
+  border-radius: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}/*# sourceMappingURL=form__input_preview.css.map */

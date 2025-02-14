@@ -1,3 +1,4 @@
+import styles from "../styles/login-page/index.module.css"
 type ButtonProps = {
   children: string;
   type?: 'button' | 'submit';
@@ -6,7 +7,7 @@ type ButtonProps = {
 
 export default function Button({ children, type = 'button', buttonId }: ButtonProps) {
   return (
-    <button className="button" id={buttonId} type={type}>
+    <button className={styles.button} id={buttonId} type={type}>
       {children}
     </button>
   );

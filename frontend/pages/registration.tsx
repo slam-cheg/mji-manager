@@ -1,6 +1,6 @@
+import "../styles/registration/index.module.css"
 import { useState, useEffect } from 'react';
 import { validateEmail, validateFio, validatePassword } from '../utils/validation';
-import { formatFio } from '../utils/formatting';
 import { apiRequest } from '../utils/api';
 import Form from '../components/Form';
 import { IApiResponse } from '../types';

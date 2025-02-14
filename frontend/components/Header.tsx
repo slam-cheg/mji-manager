@@ -41,7 +41,7 @@ export default function Header() {
     return (
         <header className="header">
             <div className="header__left">
-                <img src="/images/logo.svg" alt="Логотип" className="logo" />
+                <img src="../assets/images/logo.svg" alt="Логотип" className="logo" />
             </div>
             <div className="header__right">
                 {getLinks()}
