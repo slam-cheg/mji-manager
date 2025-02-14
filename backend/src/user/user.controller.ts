@@ -1,7 +1,6 @@
 import { API_ROUTES } from 'src/config/api.config';
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
-//import { ICreateUserDTO } from './dto/create-user.dto';
 import { ChangePermissionsDTO } from './dto/change-permissions.dto';
 import { timeStamp } from 'src/utils/timeStamp';
 import { writeLog } from 'src/utils/writeLog';
@@ -14,16 +13,6 @@ import { UserDataDTO } from './dto/user-data.dto';
 @Controller('api')
 export class UserController {
   constructor(private readonly userService: UserService, private readonly configService: ConfigService,) {}
-
-  // @Get(':login')
-  // async getUser(@Param('login') login: string) {
-  //   return this.userService.findByLogin(login);
-  // }
-
-  // @Post()
-  // async createUser(@Body() body: ICreateUserDTO) {
-  //   return this.userService.createUser(body);
-  // }
 
   @Patch(API_ROUTES.users.changePermissions)
   async changeUserPermissions(@Body() body: ChangePermissionsDTO) {

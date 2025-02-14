@@ -4,4 +4,18 @@ const nextConfig = {
   output: 'standalone', // Позволяет запускать Next.js внутри Nest.js
 };
 
-module.exports = nextConfig;
+module.exports = {
+  async rewrites() {
+    return [
+      // Перенаправляем запросы API в NestJS
+      {
+        source: '/api/:path*',
+        destination: 'http://192.168.0.99:3000/api/:path*',
+      },
+      {
+        source: '/auth/:path*',
+        destination: 'http://192.168.0.99:3000/auth/:path*',
+      },
+    ];
+  },
+};
