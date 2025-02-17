@@ -5,5 +5,6 @@ export interface IUserResponse {
   loginIsPossible: boolean;
   timeStamp: string;
   isAdmin: boolean;
+  refreshToken: string;
 }
   

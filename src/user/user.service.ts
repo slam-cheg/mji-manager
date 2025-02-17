@@ -32,6 +32,13 @@ export class UserService {
     await this.userRepository.update({ login }, { activated: false });
   }
 
+  async updateUserRefreshToken(login: string, refreshToken: string): Promise<void> {
+    await this.userRepository.update(
+      { login },
+      { refreshToken } as Partial<User>, // ✅ Приводим к Partial<User>
+    );
+  }
+
   async updateUserPermissions(
     login: string,
     isAdmin: boolean,
@@ -46,7 +53,7 @@ export class UserService {
   }
 
   async updateUserField(login: string, field: string, value: string): Promise<boolean> {
-    const allowedFields = ['fio', 'password', 'key']; // ✅ Разрешённые поля для изменения
+    const allowedFields = ['fio', 'password']; // ✅ Разрешённые поля для изменения
     if (!allowedFields.includes(field)) {
       throw new Error(`Изменение поля '${field}' запрещено.`);
     }

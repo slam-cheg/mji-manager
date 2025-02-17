@@ -1,148 +1,164 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  ForbiddenException,
-  BadRequestException,
-} from '@nestjs/common';
-import { UserService } from '../user/user.service';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { writeLog } from '../utils/writeLog';
-import { timeStamp } from '../utils/timeStamp';
-import { IUserResponse } from './auth.types';
-import { IRegisterUserDTO } from './dto/register-user.dto';
-import { ICreateUserDTO } from '../user/dto/create-user.dto';
-import { keygen } from 'src/utils/keygen';
+import { Injectable, UnauthorizedException, ForbiddenException, BadRequestException } from "@nestjs/common";
+import { UserService } from "../user/user.service";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcrypt";
+import { writeLog } from "../utils/writeLog";
+import { timeStamp } from "../utils/timeStamp";
+import { IUserResponse } from "./auth.types";
+import { IRegisterUserDTO } from "./dto/register-user.dto";
+import { ICreateUserDTO } from "../user/dto/create-user.dto";
+import { keygen } from "src/utils/keygen";
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly userService: UserService,
-    private readonly jwtService: JwtService,
-  ) {}
+	constructor(
+		private readonly userService: UserService,
+		private readonly jwtService: JwtService
+	) {}
 
-  async validateUser(requestBody: { data: { login: string; password: string } }): Promise<IUserResponse> {
-    const { login, password } = requestBody.data;
-    console.log(`Начат процесс входа: ${login} . . .`);
+	// ✅ Генерация токенов
+	private generateTokens(user: any) {
+		const accessToken = this.jwtService.sign(
+			{ login: user.login, fio: user.fio, isAdmin: user.isAdmin },
+			{ expiresIn: "1h" } // 🔥 Access-токен действует 1 час
+		);
 
-    const user = await this.userService.findByLogin(login);
-    if (!user) {
-      throw new UnauthorizedException({
-        status: 'Ошибка: пользователь не найден',
-      });
-    }
+		const refreshToken = this.jwtService.sign(
+			{ login: user.login },
+			{ expiresIn: "14d" } // 🔥 Refresh-токен действует 14 дней
+		);
 
-    // ✅ Проверяем пароль (сравнение с хешем)
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      throw new UnauthorizedException({
-        status: 'Ошибка: неверный логин или пароль',
-      });
-    }
+		return { accessToken, refreshToken };
+	}
 
-    if (!user.activated) {
-      throw new ForbiddenException({
-        status: 'Ошибка: аккаунт не активирован',
-      });
-    }
+	// ✅ Авторизация
+	async validateUser(requestBody: { data: { login: string; password: string } }): Promise<{ accessToken: string; refreshToken: string }> {
+		const { login, password } = requestBody.data;
+		console.log(`Начат процесс входа: ${login} . . .`);
 
-    // ✅ Теперь `response` соответствует `IUserResponse`
-    const response: IUserResponse = {
-      status: `Вход в аккаунт ${login} успешен`,
-      fio: user.fio || '', // Если `fio` нет, подставляем пустую строку
-      activated: user.activated,
-      loginIsPossible: true,
-      timeStamp: timeStamp(),
-      isAdmin: user.isAdmin,
-    };
+		const user = await this.userService.findByLogin(login);
+		if (!user) {
+			throw new UnauthorizedException({ status: "Ошибка: пользователь не найден" });
+		}
 
-    writeLog(response, 'logIn');
-    return response;
-  }
+		// ✅ Проверяем пароль
+		const isPasswordValid = await bcrypt.compare(password, user.password);
+		if (!isPasswordValid) {
+			throw new UnauthorizedException({ status: "Ошибка: неверный логин или пароль" });
+		}
 
-  async activateUser(login: string, password: string, key: string) {
-    console.log(`Начат процесс активации аккаунта ${login} . . .`);
+		if (!user.activated) {
+			throw new ForbiddenException({ status: "Ошибка: аккаунт не активирован" });
+		}
 
-    const user = await this.userService.findByLogin(login);
-    if (!user) {
-      throw new UnauthorizedException({
-        status: 'Ошибка: пользователь не найден',
-      });
-    }
+		// ✅ Генерируем access и refresh токены
+		const { accessToken, refreshToken } = this.generateTokens(user);
 
-    if (!(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException({
-        status: 'Ошибка: неверный логин или пароль',
-      });
-    }
+		// ✅ Сохраняем refresh-токен в базе
+		await this.userService.updateUserRefreshToken(login, refreshToken);
 
-    let activationStatus = {
-      status: `Аккаунт ${login} не активирован. Неверный ключ`,
-      boolean: false,
-      activated: false,
-      timeStamp: timeStamp(),
-    };
+		writeLog({ status: `Вход в аккаунт ${login} успешен`, timeStamp: timeStamp() }, "logIn");
 
-    if (user.activated) {
-      activationStatus = {
-        status: `Аккаунт ${login} уже активирован`,
-        boolean: true,
-        activated: true,
-        timeStamp: timeStamp(),
-      };
-    } else if (user.key === key) {
-      await this.userService.updateUserActivation(login, true);
-      activationStatus = {
-        status: `Аккаунт ${login} успешно активирован`,
-        boolean: true,
-        activated: true,
-        timeStamp: timeStamp(),
-      };
-    } else {
-      activationStatus.status = `Аккаунт ${login} не активирован. Такой ключ не зарегистрирован`;
-    }
+		return { accessToken, refreshToken };
+	}
 
-    writeLog(activationStatus, 'Activation');
-    return activationStatus;
-  }
+	// ✅ Проверка refresh-токена и обновление access-токена
+	async refreshAccessToken(refreshToken: string) {
+		try {
+			const decoded = this.jwtService.verify(refreshToken); // ✅ Декодируем refreshToken
+			const user = await this.userService.findByLogin(decoded.login);
 
-  async registerUser(registerDTO: IRegisterUserDTO) {
-    const { login, password, fio } = registerDTO;
-    console.log(`Начат процесс регистрации аккаунта ${login}`);
+			if (!user || user.refreshToken !== refreshToken) {
+				throw new UnauthorizedException("❌ Refresh token недействителен");
+			}
 
-    const existingUser = await this.userService.findByLogin(login);
-    if (existingUser) {
-      throw new BadRequestException({
-        status: `Регистрация аккаунта ${login} завершилась неудачно. Такой логин уже зарегистрирован`,
-        registration: false,
-        key: 'Not generated',
-        timeStamp: timeStamp(),
-      });
-    }
+			// 🔥 Генерируем новый accessToken
+			const newAccessToken = this.jwtService.sign({ login: user.login, fio: user.fio, isAdmin: user.isAdmin }, { expiresIn: "14d" });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const activationKey = keygen();
+			return { accessToken: newAccessToken };
+		} catch (error) {
+			throw new UnauthorizedException("❌ Ошибка при обновлении токена");
+		}
+	}
 
-    const newUser: ICreateUserDTO = {
-      // ✅ Используем строгий тип
-      login,
-      password: hashedPassword,
-      fio,
-      key: activationKey,
-      activated: false,
-    };
+	async activateUser(login: string, password: string, key: string) {
+		console.log(`Начат процесс активации аккаунта ${login} . . .`);
 
-    await this.userService.createUser(newUser);
+		const user = await this.userService.findByLogin(login);
+		if (!user) {
+			throw new UnauthorizedException({ status: "Ошибка: пользователь не найден" });
+		}
 
-    const response = {
-      status: `Регистрация аккаунта ${login} завершилась успешно`,
-      registration: true,
-      key: activationKey,
-      timeStamp: timeStamp(),
-    };
+		if (!(await bcrypt.compare(password, user.password))) {
+			throw new UnauthorizedException({ status: "Ошибка: неверный логин или пароль" });
+		}
 
-    writeLog(response, 'Registration');
+		let activationStatus = {
+			status: `Аккаунт ${login} не активирован. Неверный ключ`,
+			boolean: false,
+			activated: false,
+			timeStamp: timeStamp(),
+		};
 
-    return response;
-  }
+		if (user.activated) {
+			activationStatus = {
+				status: `Аккаунт ${login} уже активирован`,
+				boolean: true,
+				activated: true,
+				timeStamp: timeStamp(),
+			};
+		} else if (user.key === key) {
+			await this.userService.updateUserActivation(login, true);
+			activationStatus = {
+				status: `Аккаунт ${login} успешно активирован`,
+				boolean: true,
+				activated: true,
+				timeStamp: timeStamp(),
+			};
+		} else {
+			activationStatus.status = `Аккаунт ${login} не активирован. Такой ключ не зарегистрирован`;
+		}
+
+		writeLog(activationStatus, "Activation");
+		return activationStatus;
+	}
+
+	async registerUser(registerDTO: IRegisterUserDTO) {
+		const { login, password, fio } = registerDTO;
+		console.log(`Начат процесс регистрации аккаунта ${login}`);
+
+		const existingUser = await this.userService.findByLogin(login);
+		if (existingUser) {
+			throw new BadRequestException({
+				status: `Регистрация аккаунта ${login} завершилась неудачно. Такой логин уже зарегистрирован`,
+				registration: false,
+				key: "Not generated",
+				timeStamp: timeStamp(),
+			});
+		}
+
+		const hashedPassword = await bcrypt.hash(password, 10);
+		const activationKey = keygen();
+
+		const newUser: ICreateUserDTO = {
+			login,
+			password: hashedPassword,
+			fio,
+			key: activationKey,
+			activated: false,
+		};
+
+		await this.userService.createUser(newUser);
+
+		const response = {
+			status: `Регистрация аккаунта ${login} завершилась успешно`,
+			registration: true,
+			key: activationKey,
+			timeStamp: timeStamp(),
+		};
+
+		writeLog(response, "Registration");
+
+		return response;
+	}
 }

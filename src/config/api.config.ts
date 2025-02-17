@@ -3,6 +3,8 @@ export const API_ROUTES = {
       register: '/registration',
       login: '/login',
       activate: '/activation',
+      checkToken: '/check-token',
+      refreshToken: '/tokenref',
     },
     app: {
       getApp: '/get-app',

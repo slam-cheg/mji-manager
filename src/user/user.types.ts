@@ -5,4 +5,5 @@ export interface IUserEntity {
     activated: boolean;
     isAdmin: boolean;
     key: string;
+    refreshToken?: string | null;
   }
