@@ -38,16 +38,21 @@ export class AuthService {
 
 		const user = await this.userService.findByLogin(login);
 		if (!user) {
+			console.log(`Ошибка: пользователь ${login} не найден.`);
 			throw new UnauthorizedException({ status: "Ошибка: пользователь не найден" });
 		}
 
 		// ✅ Проверяем пароль
 		const isPasswordValid = await bcrypt.compare(password, user.password);
 		if (!isPasswordValid) {
+			console.log(user)
+			console.log(`Ошибка: неверный логин или пароль.`);
 			throw new UnauthorizedException({ status: "Ошибка: неверный логин или пароль" });
 		}
 
 		if (!user.activated) {
+			console.log(`Ошибка: аккаунт не активирован.`);
+			console.log(user)
 			throw new ForbiddenException({ status: "Ошибка: аккаунт не активирован" });
 		}
 
@@ -58,7 +63,7 @@ export class AuthService {
 		await this.userService.updateUserRefreshToken(login, refreshToken);
 
 		writeLog({ status: `Вход в аккаунт ${login} успешен`, timeStamp: timeStamp() }, "logIn");
-
+		console.log(`Вход в аккаунт ${login} успешен.`);
 		return { accessToken, refreshToken };
 	}
 
