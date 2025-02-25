@@ -14,7 +14,7 @@ font-family: Inter;
 z-index: 999;
 background: #fff;
 position: fixed;
-width: 410px;
+width: 550px;
 top: 50px;
 right: 20px;
 border-radius: 10px;
