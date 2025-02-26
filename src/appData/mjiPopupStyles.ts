@@ -26,6 +26,7 @@ padding: 0;
 display: flex;
 align-items: center;
 padding: 10px;
+justify-content: space-between;
 }
 
 .account-info__login {
@@ -491,5 +492,58 @@ transition: 0.3s;
 fill: #1f5473;
 transition: 0.3s;
 }
+
+.switcher {
+	align-items: center;
+	display: flex;
+	font-size: 10px;
+}
+
+.switch input {
+	display: none;
+}
+
+.switch {
+	display: inline-block;
+	width: 20px; /*=w*/
+	height: 10px; /*=h*/
+	margin-right: 4px;
+	position: relative;
+}
+
+.slider {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 30px;
+	box-shadow: 0 0 0 2px #e9e9e9, 0 0 4px #e9e9e9;
+	cursor: pointer;
+	border: 1px solid transparent;
+	overflow: hidden;
+	transition: 0.2s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	width: 50%;
+	height: 100%;
+	background-color: #e9e9e9;
+	border-radius: 30px;
+	transform: translateX(0px); /*translateX(-(w-h))*/
+	transition: 0.2s;
+}
+
+input:checked + .slider:before {
+	transform: translateX(10px); /*translateX(w-h)*/
+	background-color: #00931a;
+}
+
+input:checked + .slider {
+	box-shadow: 0 0 0 2px #00931a, 0 0 8px #00931a;
+}
+
 </style>
 `;

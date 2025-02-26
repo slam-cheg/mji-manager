@@ -43,6 +43,7 @@ export const mjiPopupLayout = (functions: Record<string, boolean>) => `
     </div>
     <div class="account-info">
         <p class="account-info__login">Пользователь: <span>#####</span></p>
+        ${functions.useAI ? '<div class="switcher"><label class="switch"><input type="checkbox" id="useAI"/><span class="slider"></span></label><span>AI обработка</span></div>' : ""}
     </div>
     <div class="tabs">
         <button class="tabs__button" id="main">Основное</button>
@@ -59,5 +60,5 @@ export const mjiPopupLayout = (functions: Record<string, boolean>) => `
         </div>
         ${functions.downloadPhotos ? '<div class="content content_deactive" id="photo"><form class="form" action="submit"><div class="form__field"><label class="form__label" for="file">Выбрать фото для загрузки</label><input class="form__input" type="file" name="file" id="file" multiple /></div><div class="form__field"><label class="form__label" for="date">Выбор даты загрузки фото</label><input class="form__input" type="date" name="date" id="date" /></div><input class="form__button" type="submit" value="Загрузить" /></form></div>' : ""}
         ${functions.parser ? '<div class="content content_deactive" id="parser"><form class="form form_parser" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите CSV файл</label><input class="form__input" type="file" id="fileInputParser" accept=".csv" /></div><button id="processBtnParser" class="form__button">Начать</button><div id="loader" style="display: none"><div id="progressText">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form><script src="libs/mammoth.browser.min.js"></script></div>' : ""}
-        ${functions.parserPDF ? '<div class="content content_deactive" id="parserPDF"><form class="form form_parserPDF" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите PDF файл</label><input class="form__input" type="file" id="fileInputParserPDF" accept=".pdf" /></div><button id="processBtnParserPDF" class="form__button">Начать</button><div id="loader" style="display: none"><div id="progressTextPDF">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form></div>' : ""}
+        ${functions.parserPDF ? '<div class="content content_deactive" id="parserPDF"><form class="form form_parserPDF" action="submit"><div class="form__field"><label class="form__label" for="file">Выберите PDF файл</label><input class="form__input" type="file" id="fileInputParserPDF" accept=".pdf" /></div><button id="processBtnParserPDF" class="form__button">Начать</button><div id="loaderPDF" style="display: none"><div id="progressTextPDF">Обработано: 0 / 0</div><div style="margin: 10px auto"><div class="loader"></div></div></div></form></div>' : ""}
     </div>`;

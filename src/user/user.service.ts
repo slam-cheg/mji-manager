@@ -7,6 +7,7 @@ import { ICreateUserDTO } from './dto/create-user.dto';
 import { UserDataDTO } from './dto/user-data.dto';
 import { timeStamp } from 'src/utils/timeStamp';
 import { writeLog } from 'src/utils/writeLog';
+import { API_ROUTES } from 'src/config/api.config';
 
 @Injectable()
 export class UserService {
@@ -76,7 +77,6 @@ export class UserService {
 
   async getUserData(dto: UserDataDTO) {
     console.log(`Начат процесс получения данных об аккаунте ${dto.login}...`);
-
     const user = await this.userRepository.findOne({ where: { login: dto.login } });
 
     if (!user) {

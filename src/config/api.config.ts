@@ -10,6 +10,7 @@ export const API_ROUTES = {
       getApp: '/get-app',
       getAppData: '/get-app-data',
       updateDefects: '/save-defects',
+      uploadPDF: '/upload-pdf'
     },
     users: {
       getUserData: '/userdata',

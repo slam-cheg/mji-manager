@@ -1,4 +1,4 @@
-import { Controller, Patch, Body } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ConfigService } from './config.service';
 import { ActiveFunctionsDTO } from './dto/active-functions.dto';
 import { writeLog } from '../utils/writeLog';
@@ -9,11 +9,11 @@ import { API_ROUTES } from './api.config';
 export class ConfigController {
   constructor(private readonly configService: ConfigService) {}
 
-  @Patch(API_ROUTES.config.changeFunctions)
+  @Post(API_ROUTES.config.changeFunctions)
   async updateActiveFunctions(@Body() body: ActiveFunctionsDTO) {
     console.log('Начат процесс изменения активных функций...');
 
-    const updateSuccess = this.configService.updateActiveFunctions(body.functions);
+    const updateSuccess = await this.configService.updateActiveFunctions(body.functions);
 
     const response = {
       status: updateSuccess ? 'Работа функций успешно изменена.' : 'Работа функций не изменена. Ошибка.',
@@ -25,3 +25,4 @@ export class ConfigController {
     return { Success: updateSuccess };
   }
 }
+
